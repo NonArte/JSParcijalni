@@ -1,3 +1,19 @@
+function Init() {
+  const widnow = document.defaultView;
+  const body = document.querySelector("#result");
+  const dl = document.createElement("dl");
+  const span = document.createElement("span");
+  if (widnow.matchMedia("screen and (max-width: 900px)").matches) {
+    dl.innerText = "\u{021D1}";
+  } else {
+    dl.innerText = "\u{021D0}";
+  }
+  dl.className = "note";
+  span.innerText = " Traži";
+  body.appendChild(dl);
+  dl.appendChild(span);
+}
+
 const url =
   "https://itunes.apple.com/search?entity=allArtist&attribute=allArtistTerm&term=";
 
@@ -14,6 +30,7 @@ function search(ev) {
   let term = text;
   form.reset();
   const body = document.querySelector("#result");
+  const widnow = document.defaultView;
 
   getData(term).then((res) => {
     if (res.results.length > 1) {
@@ -36,7 +53,11 @@ function search(ev) {
       clear();
       const dl = document.createElement("dl");
       const span = document.createElement("span");
-      dl.innerText = "\u{021D0}";
+      if (widnow.matchMedia("screen and (max-width: 900px)").matches) {
+        dl.innerText = "\u{021D1}";
+      } else {
+        dl.innerText = "\u{021D0}";
+      }
       dl.className = "note";
       span.innerText = " Pogrešan unos";
       body.appendChild(dl);
@@ -50,5 +71,5 @@ function clear() {
     body[i].remove();
   }
 }
-
+Init();
 form.addEventListener("submit", (ev) => search(ev));
