@@ -16,7 +16,6 @@ function search(ev) {
   const body = document.querySelector("#result");
 
   getData(term).then((res) => {
-    console.log("getData", getData(term));
     if (res.results.length > 1) {
       clear();
       res.results.forEach((el) => {
@@ -34,7 +33,14 @@ function search(ev) {
         dl.appendChild(dd);
       });
     } else {
-      console.log("ne ne ne");
+      clear();
+      const dl = document.createElement("dl");
+      const span = document.createElement("span");
+      dl.innerText = "\u{021D0}";
+      dl.className = "note";
+      span.innerText = " Pogrešan unos";
+      body.appendChild(dl);
+      dl.appendChild(span);
     }
   });
 }
